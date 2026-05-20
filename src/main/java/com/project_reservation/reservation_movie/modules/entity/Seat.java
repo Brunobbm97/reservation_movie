@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * Entidade que representa um lugar específico (Fila e Número) dentro de uma Sala.
+ */
 @Entity
 @Table(name = "seats")
 @Data
@@ -17,14 +19,14 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    // Relacionamento: Vários Assentos pertencem a Uma Sala
     @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
     @Column(nullable = false)
-    private String rowName;
+    private String rowName; // Exemplo: "A", "B", "C"
 
     @Column(nullable = false)
-    private Integer seatNumber;
+    private Integer seatNumber; // Exemplo: 1, 2, 3
 }

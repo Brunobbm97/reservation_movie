@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entidade que representa uma Sala de Cinema.
+ */
 @Entity
 @Table(name = "rooms")
 @Data
@@ -16,9 +19,9 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true) // O nome da sala tem de ser único (não podem haver duas "Sala 1")
     private String name;
 
     @Column(nullable = false)
-    private Integer totalCapacity;
+    private Integer totalCapacity; // Capacidade total da sala
 }

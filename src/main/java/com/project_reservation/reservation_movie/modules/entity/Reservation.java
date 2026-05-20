@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
+/**
+ * Entidade que representa a compra/reserva de bilhetes.
+ */
 @Entity
 @Table(name = "reservations")
 @Data
@@ -20,14 +22,18 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Relacionamento: Várias Reservas podem pertencer a Um Utilizador
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    // Relacionamento: Várias Reservas podem ser feitas para a mesma Sessão
     @ManyToOne
     @JoinColumn(name = "showtime_id", nullable = false)
     private Showtime showtime;
 
+    // Relacionamento: Uma Reserva pode ter Vários Assentos e um Assento pode estar em Várias Reservas (em sessões diferentes)
+    // O JPA vai criar uma tabela intermédia para gerir isto automaticamente.
     @ManyToMany
     @JoinTable(
             name = "reservation_seats",
@@ -37,8 +43,8 @@ public class Reservation {
     private List<Seat> seats;
 
     @Column(nullable = false)
-    private LocalDateTime reservationTime;
+    private LocalDateTime reservationTime; // Quando a compra foi feita
 
     @Column(nullable = false)
-    private Double totalAmount;
+    private Double totalAmount; // O preço total (Quantidade de assentos X preço do bilhete da sessão)
 }
